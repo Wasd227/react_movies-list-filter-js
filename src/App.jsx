@@ -1,7 +1,8 @@
 import './App.scss';
 import { useState } from 'react';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { SearchBar } from './components/SearchBar/SearchBar';
+import { MoviesList } from './components/MoviesList';
 
 export const App = () => {
   const [query, setQuery] = useState('');
@@ -15,33 +16,10 @@ export const App = () => {
     );
   });
 
-  const handleChange = event => {
-    setQuery(event.target.value);
-  };
-
   return (
     <div className="page">
       <div className="page-content">
-        <div className="box">
-          <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
-              Search movie
-            </label>
-
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-                value={query}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </div>
-
+        <SearchBar query={query} onQueryChange={setQuery} />
         <MoviesList movies={visibleMovies} />
       </div>
 
